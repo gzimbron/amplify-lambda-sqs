@@ -1,6 +1,19 @@
 {
   "custom": {
     "sqsexample": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "Region",
+            "LambdaExecutionRole",
+            "LambdaExecutionRoleArn"
+          ],
+          "category": "function",
+          "resourceName": "lambdaLectura"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "customCDK"
     }

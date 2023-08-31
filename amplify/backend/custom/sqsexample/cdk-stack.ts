@@ -1,9 +1,9 @@
 import * as AmplifyHelpers from '@aws-amplify/cli-extensibility-helper';
 import * as cdk from 'aws-cdk-lib';
-//import { AmplifyDependentResourcesAttributes } from '../../types/amplify-dependent-resources-ref';
+import * as iam from 'aws-cdk-lib/aws-iam';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { Construct } from 'constructs';
-//import * as iam from 'aws-cdk-lib/aws-iam';
-//import * as sns from 'aws-cdk-lib/aws-sns';
+import { AmplifyDependentResourcesAttributes } from '../../types/amplify-dependent-resources-ref';
 //import * as subs from 'aws-cdk-lib/aws-sns-subscriptions';
 import * as sqs from 'aws-cdk-lib/aws-sqs';
 
@@ -46,14 +46,31 @@ export class cdkStack extends cdk.Stack {
 		});
 
 		// Access other Amplify Resources
-		/*
-    const retVal:AmplifyDependentResourcesAttributes = AmplifyHelpers.addResourceDependency(this, 
-      amplifyResourceProps.category, 
-      amplifyResourceProps.resourceName, 
-      [
-        {category: <insert-amplify-category>, resourceName: <insert-amplify-resourcename>},
-      ]
-    );
-    */
+
+		const dependencies: AmplifyDependentResourcesAttributes = AmplifyHelpers.addResourceDependency(
+			this,
+			amplifyResourceProps.category,
+			amplifyResourceProps.resourceName,
+			[
+				{
+					category: 'function',
+					resourceName: 'lambdaLectura'
+				}
+			]
+		);
+
+		const functionLecturaArn = cdk.Fn.ref(dependencies.function.lambdaLectura.Arn);
+		const functionERoleArn = cdk.Fn.ref(dependencies.function.lambdaLectura.LambdaExecutionRoleArn);
+
+		const funcionLectura = lambda.Function.fromFunctionArn(
+			this,
+			'functionLecturaId',
+			functionLecturaArn
+		);
+		const functionRoleExc = iam.Role.fromRoleArn(this, 'functionRoleExcId', functionERoleArn);
+
+		// dar permisos de lectura de mensajes al rol de ejecucion de la funcion
+		//? Desplegar antes de suscribir funcion
+		queue.grantConsumeMessages(functionRoleExc);
 	}
 }
