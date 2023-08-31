@@ -1,4 +1,10 @@
 {
+  "custom": {
+    "sqsexample": {
+      "providerPlugin": "awscloudformation",
+      "service": "customCDK"
+    }
+  },
   "function": {
     "lambdaLectura": {
       "build": true,

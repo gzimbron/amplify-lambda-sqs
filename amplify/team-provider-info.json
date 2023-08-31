@@ -17,6 +17,9 @@
           "deploymentBucketName": "amplify-amplifysqsworkshop-dev-121218-deployment",
           "s3Key": "amplify-builds/lambdaLectura-533462574b36626e752f-build.zip"
         }
+      },
+      "custom": {
+        "sqsexample": {}
       }
     }
   }

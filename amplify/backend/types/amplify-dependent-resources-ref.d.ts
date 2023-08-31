@@ -1,4 +1,11 @@
 export type AmplifyDependentResourcesAttributes = {
+  "custom": {
+    "sqsexample": {
+      "queueArn": "string",
+      "queueName": "string",
+      "queueUrl": "string"
+    }
+  },
   "function": {
     "lambdaLectura": {
       "Arn": "string",
