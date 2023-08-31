@@ -2,6 +2,7 @@ import * as AmplifyHelpers from '@aws-amplify/cli-extensibility-helper';
 import * as cdk from 'aws-cdk-lib';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as lambdaEventSources from 'aws-cdk-lib/aws-lambda-event-sources';
 import { Construct } from 'constructs';
 import { AmplifyDependentResourcesAttributes } from '../../types/amplify-dependent-resources-ref';
 //import * as subs from 'aws-cdk-lib/aws-sns-subscriptions';
@@ -72,5 +73,9 @@ export class cdkStack extends cdk.Stack {
 		// dar permisos de lectura de mensajes al rol de ejecucion de la funcion
 		//? Desplegar antes de suscribir funcion
 		queue.grantConsumeMessages(functionRoleExc);
+
+		const eventSource = new lambdaEventSources.SqsEventSource(queue);
+
+		funcionLectura.addEventSource(eventSource);
 	}
 }
