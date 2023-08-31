@@ -5,5 +5,23 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
+  },
+  "parameters": {
+    "AMPLIFY_function_lambdaLectura_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lambdaLectura"
+        }
+      ]
+    },
+    "AMPLIFY_function_lambdaLectura_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lambdaLectura"
+        }
+      ]
+    }
   }
 }
