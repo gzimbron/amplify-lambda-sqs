@@ -1,0 +1,9 @@
+{
+  "function": {
+    "lambdaLectura": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  }
+}
